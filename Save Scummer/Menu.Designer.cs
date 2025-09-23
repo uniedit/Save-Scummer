@@ -46,8 +46,8 @@
             // 
             // btn_Load
             // 
-            btn_Load.BackColor = Color.FromArgb(  64,   64,   64);
-            btn_Load.BackgroundColor = Color.FromArgb(  64,   64,   64);
+            btn_Load.BackColor = SystemColors.WindowFrame;
+            btn_Load.BackgroundColor = SystemColors.WindowFrame;
             btn_Load.BorderColor = Color.FromArgb(  61,   61,   61);
             btn_Load.BorderRadius = 0;
             btn_Load.BorderSize = 0;
@@ -56,7 +56,7 @@
             btn_Load.FlatStyle = FlatStyle.Flat;
             btn_Load.Font = new Font("JetBrains Mono NL SemiBold", 11.9999981F, FontStyle.Bold, GraphicsUnit.Point,  0);
             btn_Load.ForeColor = Color.White;
-            btn_Load.Location = new Point(15, 258);
+            btn_Load.Location = new Point(18, 258);
             btn_Load.Name = "btn_Load";
             btn_Load.Size = new Size(433, 48);
             btn_Load.TabIndex = 1;
@@ -69,7 +69,7 @@
             // 
             lbl_SteamState.AutoSize = true;
             lbl_SteamState.Font = new Font("JetBrains Mono SemiBold", 10F, FontStyle.Bold, GraphicsUnit.Point,  0);
-            lbl_SteamState.Location = new Point(15, 220);
+            lbl_SteamState.Location = new Point(18, 220);
             lbl_SteamState.Name = "lbl_SteamState";
             lbl_SteamState.Size = new Size(168, 18);
             lbl_SteamState.TabIndex = 3;
@@ -77,6 +77,7 @@
             // 
             // skeetGroupBox1
             // 
+            skeetGroupBox1.BackColor = SystemColors.Control;
             skeetGroupBox1.Controls.Add(tbtn_Overwrite);
             skeetGroupBox1.Controls.Add(btn_Open);
             skeetGroupBox1.Controls.Add(txt_Location);
@@ -94,7 +95,8 @@
             // 
             // tbtn_Overwrite
             // 
-            tbtn_Overwrite.Location = new Point(201, 217);
+            tbtn_Overwrite.BackColor = Color.Transparent;
+            tbtn_Overwrite.Location = new Point(204, 217);
             tbtn_Overwrite.MinimumSize = new Size(45, 22);
             tbtn_Overwrite.Name = "tbtn_Overwrite";
             tbtn_Overwrite.OffBackColor = Color.Gray;
@@ -103,7 +105,7 @@
             tbtn_Overwrite.OnToggleColor = Color.WhiteSmoke;
             tbtn_Overwrite.Size = new Size(53, 26);
             tbtn_Overwrite.TabIndex = 7;
-            tbtn_Overwrite.UseVisualStyleBackColor = true;
+            tbtn_Overwrite.UseVisualStyleBackColor = false;
             tbtn_Overwrite.CheckedChanged += tbtn_Overwrite_CheckedChanged;
             // 
             // btn_Open
@@ -117,7 +119,7 @@
             btn_Open.FlatStyle = FlatStyle.Flat;
             btn_Open.Font = new Font("JetBrains Mono NL SemiBold", 7F, FontStyle.Bold, GraphicsUnit.Point,  0);
             btn_Open.ForeColor = Color.White;
-            btn_Open.Location = new Point(415, 55);
+            btn_Open.Location = new Point(418, 55);
             btn_Open.Name = "btn_Open";
             btn_Open.Size = new Size(33, 25);
             btn_Open.TabIndex = 10;
@@ -130,19 +132,22 @@
             // 
             txt_Location.BackColor = Color.FromArgb(  33,   33,   33);
             txt_Location.BorderStyle = BorderStyle.FixedSingle;
+            txt_Location.Cursor = Cursors.IBeam;
             txt_Location.Font = new Font("JetBrains Mono NL", 10F, FontStyle.Regular, GraphicsUnit.Point,  0);
             txt_Location.ForeColor = Color.Transparent;
-            txt_Location.Location = new Point(15, 55);
+            txt_Location.ImeMode = ImeMode.NoControl;
+            txt_Location.Location = new Point(18, 55);
             txt_Location.Name = "txt_Location";
             txt_Location.Size = new Size(394, 25);
             txt_Location.TabIndex = 9;
-            txt_Location.Text = "File Location:";
+            txt_Location.Text = "File Location";
+            txt_Location.MouseClick += txt_Location_MouseClick;
             txt_Location.TextChanged += txt_Location_TextChanged;
             // 
             // btn_Undo
             // 
-            btn_Undo.BackColor = Color.FromArgb(  64,   64,   64);
-            btn_Undo.BackgroundColor = Color.FromArgb(  64,   64,   64);
+            btn_Undo.BackColor = SystemColors.WindowFrame;
+            btn_Undo.BackgroundColor = SystemColors.WindowFrame;
             btn_Undo.BorderColor = Color.FromArgb(  61,   61,   61);
             btn_Undo.BorderRadius = 0;
             btn_Undo.BorderSize = 0;
@@ -150,7 +155,7 @@
             btn_Undo.FlatStyle = FlatStyle.Flat;
             btn_Undo.Font = new Font("JetBrains Mono NL SemiBold", 11.9999981F, FontStyle.Bold, GraphicsUnit.Point,  0);
             btn_Undo.ForeColor = Color.White;
-            btn_Undo.Location = new Point(15, 383);
+            btn_Undo.Location = new Point(18, 382);
             btn_Undo.Name = "btn_Undo";
             btn_Undo.Size = new Size(433, 48);
             btn_Undo.TabIndex = 6;
@@ -161,8 +166,8 @@
             // 
             // btn_Save
             // 
-            btn_Save.BackColor = Color.FromArgb(  64,   64,   64);
-            btn_Save.BackgroundColor = Color.FromArgb(  64,   64,   64);
+            btn_Save.BackColor = SystemColors.WindowFrame;
+            btn_Save.BackgroundColor = SystemColors.WindowFrame;
             btn_Save.BorderColor = Color.FromArgb(  61,   61,   61);
             btn_Save.BorderRadius = 0;
             btn_Save.BorderSize = 0;
@@ -170,7 +175,7 @@
             btn_Save.FlatStyle = FlatStyle.Flat;
             btn_Save.Font = new Font("JetBrains Mono NL SemiBold", 11.9999981F, FontStyle.Bold, GraphicsUnit.Point,  0);
             btn_Save.ForeColor = Color.White;
-            btn_Save.Location = new Point(15, 103);
+            btn_Save.Location = new Point(18, 103);
             btn_Save.Name = "btn_Save";
             btn_Save.Size = new Size(433, 44);
             btn_Save.TabIndex = 5;
@@ -183,7 +188,7 @@
             // 
             pictureBox2.BackgroundImage = (Image) resources.GetObject("pictureBox2.BackgroundImage");
             pictureBox2.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox2.Location = new Point(0, -4);
+            pictureBox2.Location = new Point(-11, -4);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(768, 20);
             pictureBox2.TabIndex = 8;
@@ -191,6 +196,7 @@
             // 
             // lstDirectory
             // 
+            lstDirectory.BackColor = SystemColors.Control;
             lstDirectory.BorderStyle = BorderStyle.None;
             lstDirectory.Dock = DockStyle.Fill;
             lstDirectory.FormattingEnabled = true;
@@ -202,6 +208,7 @@
             // 
             // skeetGroupBox2
             // 
+            skeetGroupBox2.BackColor = SystemColors.Control;
             skeetGroupBox2.Controls.Add(lstDirectory);
             skeetGroupBox2.Font = new Font("JetBrains Mono SemiBold", 9F, FontStyle.Bold);
             skeetGroupBox2.Location = new Point(485, 22);
@@ -215,6 +222,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.Control;
             ClientSize = new Size(731, 492);
             Controls.Add(skeetGroupBox2);
             Controls.Add(pictureBox2);

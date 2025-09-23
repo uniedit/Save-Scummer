@@ -1,12 +1,10 @@
-using System.Diagnostics;
-using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Security.Cryptography.X509Certificates;
-using static System.Windows.Forms.DataFormats;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Save_Scummer {
     public partial class Menu : Form {
+
         public Menu() {
             InitializeComponent();
             AllocConsole();
@@ -20,14 +18,6 @@ namespace Save_Scummer {
 
         static extern bool AllocConsole();
 
-        private void btn_Undo_Click(object sender, EventArgs e) {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e) {
-
-        }
-
         FolderBrowserDialog folder = new FolderBrowserDialog();
 
         private void btn_Open_Click(object sender, EventArgs e) {
@@ -36,6 +26,7 @@ namespace Save_Scummer {
                 txt_Location.Text = folder.SelectedPath;
             }
         }
+
         public enum CopyState {
             Ready,
             inProcess,
@@ -56,85 +47,92 @@ namespace Save_Scummer {
 
             currentTime = inTime.dateToString;
 
-            Console.WriteLine("Isto é um TimeStamp" + currentTime);
+            //format = folder.SelectedPath;
+            format = txt_Location.Text;
+            if (Directory.Exists(format)) {
 
-            format = folder.SelectedPath;
+                bool form = String.IsNullOrEmpty(format);
+                string status;
 
-            bool form = String.IsNullOrEmpty(format);
+                if (form == false) {
 
-            if (form == false) {
+                    copyStatus = CopyState.inProcess;
+                    status = (copyStatus == CopyState.inProcess) ? "Em Processo" : "Erro";
+                    Console.WriteLine($"Status: {status}. Copiando arquivos...\n");
 
-                copyStatus = CopyState.inProcess;
-                Console.WriteLine($"Status: {copyStatus}. Copiando arquivos...");
-                Console.WriteLine($"");
+                    string sourceFileName = folder.SelectedPath;
 
-                string sourceFileName = folder.SelectedPath;
+                    string exeSource = Assembly.GetExecutingAssembly().Location;
+                    string directSource = Path.GetDirectoryName(exeSource);
 
-                string exeSource = Assembly.GetExecutingAssembly().Location;
-                string directSource = Path.GetDirectoryName(exeSource);
+                    string folderName = "Backup Folder";
+                    string newFolderName = Path.Combine(directSource, folderName);
 
-                string folderName = "Backup Folder";
-                string newFolderName = Path.Combine(directSource, folderName);
-
-                if (!Directory.Exists(newFolderName)) {
-                    Console.WriteLine($"Pasta de backup não encontrada. Criando...");
-                    try {
-                        Directory.CreateDirectory(newFolderName);
-                    } catch (Exception ex) {
-                        MessageBox.Show($"Ocorreu um erro ao criar a pasta: {ex.Message}");
-                        return;
+                    if (!Directory.Exists(newFolderName)) {
+                        Console.WriteLine($"Pasta de backup não encontrada. Criando...");
+                        try {
+                            Directory.CreateDirectory(newFolderName);
+                        } catch (Exception ex) {
+                            MessageBox.Show($"Ocorreu um erro ao criar a pasta: {ex.Message}\n");
+                            return;
+                        }
+                    } else {
+                        Console.WriteLine($"Pasta de backup já existe em: {newFolderName}\n");
                     }
+
+                    insidebackup = newFolderName + @"\" + currentTime;
+                    Directory.CreateDirectory(insidebackup);
+
+                    string newFolderNameInside = Path.Combine(directSource, folderName);
+                    files = Directory.GetFiles(format);
+
+                    foreach (string file in files) {
+                        string fileName = Path.GetFileName(file);
+                        string destFile = Path.Combine(insidebackup, fileName);
+                        File.Copy(file, destFile, true);
+                    }
+                    copyStatus = CopyState.Finished;
+                    status = (copyStatus == CopyState.Finished) ? "Finalizado" : "Erro";
+                    Console.WriteLine($"Status: {status}. Cópia de arquivos concluída!\n");
+                    btn_Load.Enabled = true;
                 } else {
-                    Console.WriteLine($"Pasta de backup já existe em: {newFolderName}");
+                    Console.WriteLine("Local não inserido.");
                 }
-
-                insidebackup = newFolderName + @"\" + currentTime;
-                Directory.CreateDirectory(insidebackup);
-
-                string newFolderNameInside = Path.Combine(directSource, folderName);
-                files = Directory.GetFiles(format);
-
-                foreach (string file in files) {
-                    string fileName = Path.GetFileName(file);
-                    string destFile = Path.Combine(insidebackup, fileName);
-                    File.Copy(file, destFile, true);
-                }
-                copyStatus = CopyState.Finished;
-                Console.WriteLine($"Status: {copyStatus}. Cópia de arquivos concluída!");
-                btn_Load.Enabled = true;
             } else {
-                Console.WriteLine("Local não inserido.");
+                Console.WriteLine("Local não existe no contexto.");
             }
-
         }
 
         private void btn_Load_Click(object sender, EventArgs e) {
             files = Directory.GetFiles(insidebackup);
             string destFile = "";
-            if (tbtn_Overwrite.CheckState == CheckState.Checked) {
-                string[] existingFiles = Directory.GetFiles(format);
-                foreach (string file in existingFiles) {
-                    File.Delete(file);
-                }
-                foreach (string file in files) {
-                    string fileName = Path.GetFileName(file);
-                    destFile = Path.Combine(format, fileName);
-                    File.Copy(file, destFile, true);
+            if (Directory.Exists(format)) {
+                if (tbtn_Overwrite.CheckState == CheckState.Checked) {
+                    string[] existingFiles = Directory.GetFiles(format);
+                    foreach (string file in existingFiles) {
+                        File.Delete(file);
+                    }
+                    foreach (string file in files) {
+                        string fileName = Path.GetFileName(file);
+                        destFile = Path.Combine(format, fileName);
+                        File.Copy(file, destFile, true);
+                    }
+                    Console.WriteLine($"Copia de arquivos para o Local Raiz Juntamente com Override dos Arquivos concluída!\n");
+                } else {
+                    foreach (string file in files) {
+                        string fileName = Path.GetFileName(file);
+                        destFile = Path.Combine(format, fileName);
+                        File.Copy(file, destFile, true);
+                    }
+                    Console.WriteLine($"Copia de arquivos para o Local Raiz concluída!\n");
                 }
             } else {
-                foreach (string file in files) {
-                    string fileName = Path.GetFileName(file);
-                    destFile = Path.Combine(format, fileName);
-                    File.Copy(file, destFile, true);
-                }
+                Console.WriteLine("Local não existe no contexto.");
             }
         }
 
-        private void tbtn_Overwrite_CheckedChanged(object sender, EventArgs e) {
 
-        }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e) {
+        private void lstDirectory_SelectedIndexChanged(object sender, EventArgs e) {
             updateDirectory();
         }
 
@@ -162,15 +160,21 @@ namespace Save_Scummer {
             }
         }
 
-        private void lstDirectory_Enter(object sender, EventArgs e) {
-            updateDirectory();
+        int i = 0;
+        private void txt_Location_MouseClick(object sender, MouseEventArgs e) {
+            if (this.txt_Location.Text.Equals("File Location") && i == 0) {
+                this.txt_Location.Text = "";
+                i = 1;
+            }
         }
 
-        private void lstDirectory_SelectedIndexChanged(object sender, EventArgs e) {
-            updateDirectory();
+        private void tbtn_Overwrite_CheckedChanged(object sender, EventArgs e) {
+
         }
 
-        private void timer1_Tick(object sender, EventArgs e) {
+        private void btn_Undo_Click(object sender, EventArgs e) {
+
         }
+
     }
 }
