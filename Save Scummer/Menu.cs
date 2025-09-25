@@ -1,9 +1,11 @@
+using System.Drawing.Text;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Save_Scummer {
     public partial class Menu : Form {
+
+        private static PrivateFontCollection fontCollection = new PrivateFontCollection();
 
         public Menu() {
             InitializeComponent();
@@ -44,7 +46,6 @@ namespace Save_Scummer {
         }
 
         private void btn_Save_Click(object sender, EventArgs e) {
-
             currentTime = inTime.dateToString;
 
             //format = folder.SelectedPath;
@@ -176,5 +177,12 @@ namespace Save_Scummer {
 
         }
 
+        private void lbl_Overwrite_Click(object sender, EventArgs e) {
+
+        }
+
+        private void skeetGroupBox1_Enter(object sender, EventArgs e) {
+
+        }
     }
 }

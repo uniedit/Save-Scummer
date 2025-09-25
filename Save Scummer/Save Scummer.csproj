@@ -7,7 +7,13 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Fonts\JetBrainsMono-Bold.ttf" />
+    <EmbeddedResource Include="Fonts\JetBrainsMono-Regular.ttf" />
+  </ItemGroup>
 
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">

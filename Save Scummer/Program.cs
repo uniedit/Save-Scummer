@@ -1,14 +1,12 @@
-using System.Runtime.InteropServices;
-
-namespace Save_Scummer
-{
-    internal static class Program
-    {
+namespace Save_Scummer {
+    internal static class Program {
         [STAThread]
-        static void Main()
-        {
+        static void Main() {
+
             ApplicationConfiguration.Initialize();
             Application.Run(new Menu());
+
         }
     }
 }
+
