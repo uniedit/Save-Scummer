@@ -5,8 +5,6 @@ using System.Runtime.InteropServices;
 namespace Save_Scummer {
     public partial class Menu : Form {
 
-        private static PrivateFontCollection fontCollection = new PrivateFontCollection();
-
         public Menu() {
             InitializeComponent();
             AllocConsole();
